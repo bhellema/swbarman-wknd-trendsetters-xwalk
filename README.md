@@ -1,5 +1,5 @@
-# Your Project's Title...
-Your project's description...
+# Crosswalk implementation of wknd trendsetters E2E
+This is an end to end implementation of Crosswalk wknd trendsetters: https://wknd-trendsetters.webflow.io/
 
 ## Environments
 - Preview: https://main--{repo}--{owner}.aem.page/
