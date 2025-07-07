@@ -2,8 +2,8 @@
 This is an end to end implementation of Crosswalk wknd trendsetters: https://wknd-trendsetters.webflow.io/
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.aem.page/
-- Live: https://main--{repo}--{owner}.aem.live/
+- Preview: https://main--swbarman-wknd-trendsetters-xwalk--aemdemos.aem.page/
+- Live: https://main--swbarman-wknd-trendsetters-xwalk--aemdemos.aem.live/
 
 ## Documentation
 
