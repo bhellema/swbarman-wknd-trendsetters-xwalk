@@ -14,7 +14,7 @@ import core from '@actions/core';
 import fs from 'fs';
 import jwtAuth from '@adobe/jwt-auth';
 
-function fetchAccessToken(credentialsPath) {
+async function fetchAccessToken(credentialsPath) {
   // Read and parse the credentials
   const fileContent = fs.readFileSync(credentialsPath, 'utf8');
   const credsRaw = JSON.parse(fileContent);
@@ -30,6 +30,8 @@ function fetchAccessToken(credentialsPath) {
     metaScopes: [integration.metascopes], // wrap as array if it's a string
     ims: `https://${integration.imsEndpoint}`,
   };
+
+  core.info(`Fetching access token for AEM with config: ${JSON.stringify(config)}`);
 
   jwtAuth(config)
     .then((response) => response.access_token)
@@ -50,8 +52,13 @@ export async function run() {
 
     if (operation === 'fetch-access-token') {
       const accessToken = await fetchAccessToken(credentialsPath);
-      core.setOutput('access_token', accessToken);
-      core.info(`Access token fetched successfully: ${accessToken.substring(0, 10)}...`);
+      if (accessToken) {
+        core.setOutput('access_token', accessToken);
+        core.info(`Access token fetched successfully: ${accessToken?.substring(0, 10)}...`);
+      } else {
+        core.error('Failed to fetch access token');
+        process.exit(1);
+      }
     } else {
       throw new Error(`Unknown operation: ${operation}`);
     }
