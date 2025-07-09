@@ -65,6 +65,25 @@ async function fetchZip(downloadUrl, zipDestination) {
 }
 
 /**
+ * Get the list of paths from a filter.xml file.
+ * @param {string} xmlString
+ * @returns {string[]}
+ */
+function getFilterPathsSimple(xmlString) {
+  const lines = xmlString.split('\n');
+  const paths = [];
+
+  for (const line of lines) {
+    const match = line.match(/^\s*<filter\s+root="([^"]+)"><\/filter>\s*$/);
+    if (match) {
+      paths.push(match[1]);
+    }
+  }
+
+  return paths;
+}
+
+/**
  * Unzip one file at a time.
  * @param {string} zipPath
  * @param {string} contentsDir
@@ -81,6 +100,27 @@ async function extractZip(zipPath, contentsDir) {
       const fullPath = path.join(contentsDir, entry.path);
       if (extractedFiles < 3 && entry.path.toLowerCase().endsWith('.zip')) {
         core.setOutput('xwalk_zip', entry.path);
+
+        fs.createReadStream(fullPath)
+          .pipe(unzipper.ParseOne('META-INF/vault/filter.xml'))
+          .pipe(fs.createWriteStream('filter.xml'))
+          .on('finish', () => {
+            console.log('filter.xml extracted successfully');
+
+            // Read the extracted file
+            fs.readFile('filter.xml', 'utf8', (err, data) => {
+              if (err) {
+                console.error('Error reading extracted file:', err);
+              } else {
+                console.log('Filter XML content:', data);
+                const paths = getFilterPathsSimple(data);
+                core.setOutput('content_paths', paths);
+              }
+            });
+          })
+          .on('error', (error) => {
+            console.error('Error extracting filter.xml:', error);
+          });
       }
 
       if (entry.type === 'Directory') {
