@@ -198,7 +198,6 @@ jobs:
           access_token: ${{ steps.get-access-token-for-aem.outputs.access_token }}
           aem_url: ${{ github.event.inputs.aem_author_url }}
           content_paths: ${{ steps.download-zip.outputs.content_paths }}
-          replicate_type: ${{ github.event.inputs.replicate_type }}
           is_preview: 'true'
 
       - name: Report if replicate to preview failed
@@ -236,7 +235,6 @@ jobs:
           access_token: ${{ steps.get-access-token-for-aem.outputs.access_token }}
           aem_url: ${{ github.event.inputs.aem_author_url }}
           content_paths: ${{ steps.download-zip.outputs.content_paths }}
-          replicate_type: ${{ github.event.inputs.replicate_type }}
           is_preview: 'false'
 
       - name: Report if replicate to publish failed
