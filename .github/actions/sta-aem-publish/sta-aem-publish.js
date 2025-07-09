@@ -63,7 +63,6 @@ async function replicateToPreview(accessToken, aemUrl, contentPaths) {
 
     const result = await response.json();
     core.info('✅ Replication to preview completed successfully');
-    core.info(`📊 Response: ${JSON.stringify(result, null, 2)}`);
 
     return result;
   } catch (error) {
@@ -117,7 +116,6 @@ async function replicateToPublish(accessToken, aemUrl, contentPaths) {
 
     const result = await response.text();
     core.info('✅ Replication to publish completed successfully');
-    core.info(`📊 Response: ${result}`);
 
     return { success: true, response: result };
   } catch (error) {
