@@ -167,23 +167,20 @@ export async function run() {
       throw new Error('Content paths are required');
     }
 
-    // Parse content paths remove the quotes from the paths as they come in as an array of strings
-    const contentPaths = contentPathsInput.split(',')
-      .map((path) => path.replace(/"/g, '').trim())
-      .filter((path) => path);
+    const paths = JSON.parse(contentPathsInput);
 
-    if (contentPaths.length === 0) {
+    if (paths.length === 0) {
       throw new Error('No valid content paths provided');
     }
 
     const targetType = isPreview ? 'preview' : 'publish';
     core.info(`🚀 Starting AEM replication to ${targetType}`);
     core.info(`📍 AEM URL: ${aemUrl}`);
-    core.info(`# ${targetType}: ${contentPaths.length} content paths`);
+    core.info(`# ${targetType}: ${paths.length} content paths`);
     core.info(`🎯 Target Environment: ${targetType.toUpperCase()}`);
 
     // Perform the replication operation
-    await replicateContent(accessToken, aemUrl, contentPaths, isPreview);
+    await replicateContent(accessToken, aemUrl, paths, isPreview);
 
     core.info(`🎉 AEM replication to ${targetType} completed successfully`);
   } catch (error) {

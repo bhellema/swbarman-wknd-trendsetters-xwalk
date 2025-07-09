@@ -31,8 +31,6 @@ async function fetchAccessToken(credentialsPath) {
     ims: `https://${integration.imsEndpoint}`,
   };
 
-  core.info(`Fetching access token for AEM with config: ${JSON.stringify(config)}`);
-
   return jwtAuth(config)
     .then((response) => response.access_token)
     .catch(() => {
