@@ -51,7 +51,7 @@ export async function run() {
     if (operation === 'fetch-access-token') {
       const accessToken = await fetchAccessToken(credentialsPath);
       core.setOutput('access_token', accessToken);
-      core.info('Access token fetched successfully');
+      core.info(`Access token fetched successfully: ${accessToken.substring(0, 10)}...`);
     } else {
       throw new Error(`Unknown operation: ${operation}`);
     }
