@@ -68,7 +68,7 @@ async function runUpload(
  */
 export async function run() {
   const accessToken = core.getInput('access_token');
-  const target = core.getInput('root_mountpoint');
+  const target = core.getInput('aem_author_url');
   const zipPath = core.getInput('zip_path');
   const zipName = core.getInput('zip_name');
   const skipAssets = core.getInput('skip_assets') === 'true';
