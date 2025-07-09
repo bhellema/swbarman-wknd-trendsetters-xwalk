@@ -12,6 +12,7 @@
 
 const fs = require('fs');
 const jwtAuth = require('@adobe/jwt-auth');
+const core = require('@actions/core');
 
 async function fetchAccessToken(credentialsPath) {
   // Read and parse the credentials
@@ -32,7 +33,7 @@ async function fetchAccessToken(credentialsPath) {
 
   core.info(`Fetching access token for AEM with config: ${JSON.stringify(config)}`);
 
-  jwtAuth(config)
+  return jwtAuth(config)
     .then((response) => response.access_token)
     .catch(() => {
       core.error('Failed to fetch access token');
@@ -44,7 +45,7 @@ async function fetchAccessToken(credentialsPath) {
  * Main function for the GitHub Action
  * @returns {Promise<void>}
  */
-export async function run() {
+async function run() {
   try {
     const credentialsPath = core.getInput('credentials_path');
     const operation = core.getInput('operation');
@@ -66,4 +67,9 @@ export async function run() {
   }
 }
 
-await run();
+module.exports = { run };
+
+// Run if this file is executed directly
+if (require.main === module) {
+  run();
+}
