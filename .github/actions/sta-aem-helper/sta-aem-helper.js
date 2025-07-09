@@ -12,7 +12,6 @@
 
 import core from '@actions/core';
 import fs from 'fs';
-import jwtAuth from '@adobe/jwt-auth';
 
 async function fetchAccessToken(credentialsPath) {
   // Read and parse the credentials
@@ -33,7 +32,9 @@ async function fetchAccessToken(credentialsPath) {
 
   core.info(`Fetching access token for AEM with config: ${JSON.stringify(config)}`);
 
-  jwtAuth(config)
+  const { default: auth } = await import("@adobe/jwt-auth");
+
+  auth(config)
     .then((response) => response.access_token)
     .catch(() => {
       core.error('Failed to fetch access token');
