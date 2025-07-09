@@ -5,6 +5,9 @@ inputs:
   credentials_path:
     description: "The decoded credentials in a JSON string."
     required: true
+  operation:
+    description: "The operation to perform"
+    required: true
 outputs:
   access_token:
     description: "The access token for AEM"
