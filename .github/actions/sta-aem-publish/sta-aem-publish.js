@@ -43,7 +43,7 @@ async function replicateToPreview(accessToken, aemUrl, contentPaths) {
     tier: 'preview',
   };
 
-  core.info(`📋 Preview payload: ${JSON.stringify(payload, null, 2)}`);
+  core.info(`📋 Pages being previewed:\n${contentPaths.join('\n')}`);
 
   try {
     const response = await fetch(previewUrl, {
