@@ -96,31 +96,13 @@ async function extractZip(zipPath, contentsDir) {
     totalFiles = directory.files.length;
     let extractedFiles = 0;
     let nextProgress = 20;
+    let zipFilePath;
     for (const entry of directory.files) {
       const fullPath = path.join(contentsDir, entry.path);
       if (extractedFiles < 3 && entry.path.toLowerCase().endsWith('.zip')) {
         core.setOutput('xwalk_zip', entry.path);
-
-        fs.createReadStream(fullPath)
-          .pipe(unzipper.ParseOne('META-INF/vault/filter.xml'))
-          .pipe(fs.createWriteStream('filter.xml'))
-          .on('finish', () => {
-            console.log('filter.xml extracted successfully');
-
-            // Read the extracted file
-            fs.readFile('filter.xml', 'utf8', (err, data) => {
-              if (err) {
-                console.error('Error reading extracted file:', err);
-              } else {
-                console.log('Filter XML content:', data);
-                const paths = getFilterPathsSimple(data);
-                core.setOutput('content_paths', paths);
-              }
-            });
-          })
-          .on('error', (error) => {
-            console.error('Error extracting filter.xml:', error);
-          });
+        core.info(`✅ cp zip: ${entry.path}`);
+        zipFilePath = entry.path;
       }
 
       if (entry.type === 'Directory') {
@@ -143,6 +125,31 @@ async function extractZip(zipPath, contentsDir) {
         nextProgress += 20;
       }
     }
+
+    const contentPackageZipPath = path.join(contentsDir, zipFilePath);
+    core.info(`✅ Current Path: ${contentPackageZipPath}`);
+
+    fs.createReadStream(contentPackageZipPath)
+      .pipe(unzipper.ParseOne('META-INF/vault/filter.xml'))
+      .pipe(fs.createWriteStream('filter.xml'))
+      .on('finish', () => {
+        console.log('filter.xml extracted successfully');
+
+        // Read the extracted file
+        fs.readFile('filter.xml', 'utf8', (err, data) => {
+          if (err) {
+            console.error('Error reading extracted file:', err);
+          } else {
+            console.log('Filter XML content:', data);
+            const paths = getFilterPathsSimple(data);
+            core.setOutput('content_paths', paths);
+          }
+        });
+      })
+      .on('error', (error) => {
+        console.error('Error extracting filter.xml:', error);
+      });
+
   } catch (error) {
     throw new Error(`Failed to extract zip: ${error.message || error}`);
   }
