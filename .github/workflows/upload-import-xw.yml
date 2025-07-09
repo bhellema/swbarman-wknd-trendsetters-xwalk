@@ -15,7 +15,7 @@ on:
         required: true
         type: password
       aemy_callbacks:
-        description: 'The AEMY context as a string.'
+        description: 'The AEMY callbacks as a string.'
         required: true
         type: password
       aemy_context:
@@ -65,7 +65,7 @@ jobs:
         run: |
           cd .github/actions/sta-aem-helper
           npm install
-          cd .github/actions/sta-status
+          cd ../sta-status
           npm install
           cd ../sta-import-zip
           npm install
