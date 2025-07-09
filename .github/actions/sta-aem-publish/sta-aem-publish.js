@@ -167,8 +167,10 @@ export async function run() {
       throw new Error('Content paths are required');
     }
 
-    // Parse content paths
-    const contentPaths = contentPathsInput.split(',').map((path) => path.trim()).filter((path) => path);
+    // Parse content paths remove the quotes from the paths as they come in as an array of strings
+    const contentPaths = contentPathsInput.split(',')
+      .map((path) => path.replace(/"/g, '').trim())
+      .filter((path) => path);
 
     if (contentPaths.length === 0) {
       throw new Error('No valid content paths provided');
