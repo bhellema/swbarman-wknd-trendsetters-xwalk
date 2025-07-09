@@ -10,8 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
-import core from '@actions/core';
-import fs from 'fs';
+const fs = require('fs');
+const jwtAuth = require('@adobe/jwt-auth');
 
 async function fetchAccessToken(credentialsPath) {
   // Read and parse the credentials
@@ -32,9 +32,7 @@ async function fetchAccessToken(credentialsPath) {
 
   core.info(`Fetching access token for AEM with config: ${JSON.stringify(config)}`);
 
-  const { default: auth } = await import("@adobe/jwt-auth");
-
-  auth(config)
+  jwtAuth(config)
     .then((response) => response.access_token)
     .catch(() => {
       core.error('Failed to fetch access token');
