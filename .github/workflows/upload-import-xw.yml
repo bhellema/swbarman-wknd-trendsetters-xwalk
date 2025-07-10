@@ -18,7 +18,7 @@ on:
       aemy_context:
         description: 'The AEMY context as a string.'
         required: true
-      aem_author_url:
+      root_mountpoint:
         description: 'The AEM Author instance root URL for API operations (replication, etc.)'
         required: true
       skip_assets:
@@ -158,7 +158,7 @@ jobs:
         uses: ./.github/actions/sta-xwalk-upload
         with:
           access_token: ${{ steps.get-access-token-for-aem.outputs.access_token }}
-          aem_author_url: ${{ github.event.inputs.aem_author_url }}
+          aem_author_url: ${{ github.event.inputs.root_mountpoint }}
           skip_assets: ${{ github.event.inputs.skip_assets }}
           zip_path: ${{ steps.download-zip.outputs.temp_dir }}/contents
           zip_name: ${{ steps.download-zip.outputs.xwalk_zip }}
@@ -196,7 +196,7 @@ jobs:
         uses: ./.github/actions/sta-aem-publish
         with:
           access_token: ${{ steps.get-access-token-for-aem.outputs.access_token }}
-          aem_url: ${{ github.event.inputs.aem_author_url }}
+          aem_url: ${{ github.event.inputs.root_mountpoint }}
           content_paths: ${{ steps.download-zip.outputs.content_paths }}
           is_preview: 'true'
 
@@ -233,7 +233,7 @@ jobs:
         uses: ./.github/actions/sta-aem-publish
         with:
           access_token: ${{ steps.get-access-token-for-aem.outputs.access_token }}
-          aem_url: ${{ github.event.inputs.aem_author_url }}
+          aem_url: ${{ github.event.inputs.root_mountpoint }}
           content_paths: ${{ steps.download-zip.outputs.content_paths }}
           is_preview: 'false'
 
