@@ -1,46 +1,31 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Ensure we operate on the .cards block itself
-  let block = element;
-  if (!block.classList.contains('cards')) {
-    const found = element.querySelector(':scope > .cards');
-    if (found) {
-      block = found;
-    } else {
-      return;
-    }
+  // Step 1: Find the direct cards block
+  let cardsBlock = element;
+  if (cardsBlock.classList.contains('cards-wrapper')) {
+    const found = cardsBlock.querySelector('.cards.block');
+    if (found) cardsBlock = found;
+  }
+  // Defensive: must have <ul> with <li>
+  const ul = cardsBlock.querySelector('ul');
+  if (!ul) return;
+  const cards = Array.from(ul.children).filter(li => li.tagName === 'LI');
+  const rows = [];
+  // Header row matching block name
+  rows.push(['Cards']);
+
+  for (const card of cards) {
+    // Image/Icon cell
+    const imgDiv = card.querySelector('.cards-card-image');
+    // Text content cell
+    const bodyDiv = card.querySelector('.cards-card-body');
+    // Defensive: skip if missing mandatory content
+    if (!imgDiv || !bodyDiv) continue;
+    rows.push([imgDiv, bodyDiv]);
   }
 
-  const ul = block.querySelector('ul');
-  if (!ul) return;
-  const lis = Array.from(ul.children).filter(child => child.tagName === 'LI');
-  const rows = [['Cards']]; // Header row
-
-  lis.forEach(li => {
-    // Find image or icon: the .cards-card-image block
-    let imageCell = null;
-    const imageDiv = li.querySelector('.cards-card-image');
-    if (imageDiv) {
-      // Use the picture directly if it exists, otherwise whatever is there
-      const pic = imageDiv.querySelector('picture');
-      if (pic) {
-        imageCell = pic;
-      } else {
-        const img = imageDiv.querySelector('img');
-        imageCell = img || imageDiv;
-      }
-    }
-
-    // Find text content: .cards-card-body (may contain title/desc)
-    let textCell = null;
-    const bodyDiv = li.querySelector('.cards-card-body');
-    if (bodyDiv) {
-      textCell = bodyDiv;
-    }
-
-    // Always add both columns, even if one is missing
-    rows.push([imageCell, textCell]);
-  });
+  // If no cards were found, do not replace
+  if (rows.length <= 1) return;
 
   const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
