@@ -27,7 +27,12 @@ export default function parse(element, { document }) {
       fallbackDiv.textContent = cardDiv.textContent.trim();
       content = fallbackDiv;
     }
-    return [content];
+
+    const cells =
+      [' ', content]
+      ;
+
+    return cells;
   });
   // Compile the table data
   const tableData = [headerRow, ...rows];
