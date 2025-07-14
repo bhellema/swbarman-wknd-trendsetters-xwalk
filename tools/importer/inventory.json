@@ -164,18 +164,6 @@
           "urlHash": "9b4d89f80efba6f8dbcb1e3da8ea8ffa8771a959",
           "uuid": "9b4d89f8-05-763479c3261fc43016e8eafc05c8ea8587e61655",
           "xpath": "/html[1]/body[1]/section[3]/div[1]/div[1]/div[2]"
-        },
-        {
-          "url": "https://www.wknd-trendsetters.site/latest-trends-young-fashion",
-          "urlHash": "f5e200536a2c91b06effaf661df0675e13f262b6",
-          "uuid": "f5e20053-05-28a9b8a4613e4ebb7b85814fd3998dfa3ff3ea64",
-          "xpath": "/html[1]/body[1]/section[3]/div[1]/div[1]/div[1]"
-        },
-        {
-          "url": "https://www.wknd-trendsetters.site/latest-trends-young-fashion",
-          "urlHash": "f5e200536a2c91b06effaf661df0675e13f262b6",
-          "uuid": "f5e20053-06-763479c3261fc43016e8eafc05c8ea8587e61655",
-          "xpath": "/html[1]/body[1]/section[3]/div[1]/div[1]/div[2]"
         }
       ]
     },
@@ -935,6 +923,24 @@
           "urlHash": "1a14744466075b2d00884f27fb69e2633b6fcb84",
           "uuid": "1a147444-01-b2c8ec8cc7206114599cd049698cc67e0e048d63",
           "xpath": "/html[1]/body[1]/header[1]"
+        }
+      ]
+    },
+    {
+      "name": "Cards",
+      "cluster": 41,
+      "instances": [
+        {
+          "url": "https://www.wknd-trendsetters.site/latest-trends-young-fashion",
+          "urlHash": "f5e200536a2c91b06effaf661df0675e13f262b6",
+          "uuid": "f5e20053-05-28a9b8a4613e4ebb7b85814fd3998dfa3ff3ea64",
+          "xpath": "/html[1]/body[1]/section[3]/div[1]/div[1]/div[1]"
+        },
+        {
+          "url": "https://www.wknd-trendsetters.site/latest-trends-young-fashion",
+          "urlHash": "f5e200536a2c91b06effaf661df0675e13f262b6",
+          "uuid": "f5e20053-06-763479c3261fc43016e8eafc05c8ea8587e61655",
+          "xpath": "/html[1]/body[1]/section[3]/div[1]/div[1]/div[2]"
         }
       ]
     }
