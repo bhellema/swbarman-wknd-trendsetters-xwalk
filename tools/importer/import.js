@@ -55,6 +55,8 @@ import metadataParser from './parsers/metadata.js';
 import cleanupTransformer from './transformers/cleanup.js';
 import imageTransformer from './transformers/images.js';
 import linkTransformer from './transformers/links.js';
+import cards41Parser from './parsers/cards41.js';
+
 import { TransformHook } from './transformers/transform.js';
 import { customParsers, customTransformers, customElements } from './import.custom.js';
 import {
@@ -105,6 +107,7 @@ const parsers = {
   embedVideo1: embedVideo1Parser,
   tabs28: tabs28Parser,
   columns8: columns8Parser,
+  cards41: cards41Parser,
   ...customParsers,
 };
 

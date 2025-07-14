@@ -2,7 +2,7 @@
 export default function parse(element, { document }) {
   // Cards (cards41) block: expects each card to have an image and rich text
   // Each card is a direct child div. Some cards may have image and text, some only image, some only text.
-  const cardDivs = element.querySelectorAll(':scope > div');
+  const cardDivs = element.querySelectorAll(':scope > div:has(img)');
   const rows = [
     ['Cards (cards41)']
   ];
