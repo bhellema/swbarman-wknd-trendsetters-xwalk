@@ -9,23 +9,9 @@ export default function parse(element, { document }) {
   let mainContent = null;
 
   if (grid) {
-    const gridItems = grid.querySelectorAll(':scope > div');
-
-    // Background image: first .cover-image img in the first grid cell
-    if (gridItems[0]) {
-      bgImg = gridItems[0].querySelector('img.cover-image');
-    }
-    // Main content: card-body in the second grid cell
-    if (gridItems[1]) {
-      const cardBody = gridItems[1].querySelector('.card-body');
-      // Card can have nested elements, but we should reference the cardBody
-      if (cardBody) {
-        mainContent = cardBody;
-      } else {
-        // Fallback to the content container if .card-body is missing
-        mainContent = gridItems[1];
-      }
-    }
+    const gridItems = grid.querySelectorAll(':scope > div:nth-child(2)');
+    bgImg = gridItems[0].querySelector('img');
+    mainContent = gridItems[0].querySelector('div');
   }
 
   // Ensure we always give something for each row (null if missing)
