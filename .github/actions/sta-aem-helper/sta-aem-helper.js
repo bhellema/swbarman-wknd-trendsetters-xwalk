@@ -11,6 +11,7 @@
  */
 
 const fs = require('fs');
+// eslint-disable-next-line import/no-unresolved
 const jwtAuth = require('@adobe/jwt-auth');
 const core = require('@actions/core');
 

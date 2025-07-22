@@ -126,30 +126,35 @@ async function extractZip(zipPath, contentsDir) {
       }
     }
 
-    const contentPackageZipPath = path.join(contentsDir, zipFilePath);
-    core.info(`✅ Current Path: ${contentPackageZipPath}`);
+    if (zipFilePath) {
+      const contentPackageZipPath = path.join(contentsDir, zipFilePath);
+      core.info(`✅ Current Path: ${contentPackageZipPath}`);
 
-    fs.createReadStream(contentPackageZipPath)
-      .pipe(unzipper.ParseOne('META-INF/vault/filter.xml'))
-      .pipe(fs.createWriteStream('filter.xml'))
-      .on('finish', () => {
-        console.log('filter.xml extracted successfully');
+      fs.createReadStream(contentPackageZipPath)
+        .pipe(unzipper.ParseOne('META-INF/vault/filter.xml'))
+        .pipe(fs.createWriteStream('filter.xml'))
+        .on('finish', () => {
+          // eslint-disable-next-line no-console
+          console.log('filter.xml extracted successfully');
 
-        // Read the extracted file
-        fs.readFile('filter.xml', 'utf8', (err, data) => {
-          if (err) {
-            console.error('Error reading extracted file:', err);
-          } else {
-            console.log('Filter XML content:', data);
-            const paths = getFilterPathsSimple(data);
-            core.setOutput('content_paths', paths);
-          }
+          // Read the extracted file
+          fs.readFile('filter.xml', 'utf8', (err, data) => {
+            if (err) {
+              // eslint-disable-next-line no-console
+              console.error('Error reading extracted file:', err);
+            } else {
+              // eslint-disable-next-line no-console
+              console.log('Filter XML content:', data);
+              const paths = getFilterPathsSimple(data);
+              core.setOutput('content_paths', paths);
+            }
+          });
+        })
+        .on('error', (error) => {
+          // eslint-disable-next-line no-console
+          console.error('Error extracting filter.xml:', error);
         });
-      })
-      .on('error', (error) => {
-        console.error('Error extracting filter.xml:', error);
-      });
-
+    }
   } catch (error) {
     throw new Error(`Failed to extract zip: ${error.message || error}`);
   }
