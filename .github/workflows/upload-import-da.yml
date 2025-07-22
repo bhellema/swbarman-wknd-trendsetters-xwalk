@@ -15,7 +15,7 @@ on:
         description: 'The URL of the zip file to download.'
         required: true
         type: password
-      aemy_callbacks_urls:
+      aemy_callback_urls:
         description: 'The AEMY context as a string.'
         required: true
         type: password
