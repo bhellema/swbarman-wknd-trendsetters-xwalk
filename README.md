@@ -4,8 +4,8 @@ This is a project created by AEMY.
 
 ## Environments
 
-- Preview: https://main--swbarman-wknd-trendsetters-xwalk--aemdemos.aem.page/
-- Live: https://main--swbarman-wknd-trendsetters-xwalk--aemdemos.aem.live/
+- Preview: https://main--swbarman-wknd-trendsetters-xwalk--bhellema.aem.page/
+- Live: https://main--swbarman-wknd-trendsetters-xwalk--bhellema.aem.live/
 
 ## Installation
 
