@@ -92,9 +92,11 @@ async function uploadToDa(contentPath, target, token, skipAssets) {
 function checkForRequiredContent(contentPath) {
   core.info(`Checking for required content in ${contentPath}`);
 
-  // get all files and folders in the contentPath and log them
-  const files = fs.readdirSync(contentPath);
-  core.info(`Files: ${files}`);
+  // list all files and directories in the contentPath
+  const files = fs.readdirSync(contentPath, { recursive: true });
+  files.forEach((file) => {
+    core.info(`Entry: ${file} - ${fs.statSync(path.join(contentPath, file)).isDirectory() ? 'Directory' : 'File'}`);
+  });
 
   const daFolder = path.join(contentPath, 'da');
   const assetListFile = path.join(contentPath, 'asset-list.json');
