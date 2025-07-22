@@ -1,4 +1,4 @@
 mountpoints:
   /:
-    url: https://content.da.live/aemsites/bhellema/
+    url: https://content.da.live/aemdemos/ec-da-trial/
     type: markup
