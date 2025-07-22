@@ -54,12 +54,6 @@ jobs:
           fi
           
           # Ensure the secret was set, and was set in the env variable properly.
-          if [ -z "${{ env.DA_UPLOAD_TOKEN }}" ]; then
-            errorMessage="❌ The following secret is not set in your GitHub repo: JS_LF- DA_UPLOAD_TOKEN JS_LF"
-            echo "errorMessage=$errorMessage" >> $GITHUB_ENV
-          fi
-
-          # Ensure the secret was set, and was set in the env variable properly.
           if [ -z "${{ env.AEMY_API_KEY }}" ]; then
             errorMessage="❌ The following secret is not set in your GitHub repo: JS_LF- AEMY_API_KEY JS_LF"
             echo "errorMessage=$errorMessage" >> $GITHUB_ENV
