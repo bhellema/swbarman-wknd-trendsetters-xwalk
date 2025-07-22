@@ -90,8 +90,19 @@ async function uploadToDa(contentPath, target, token, skipAssets) {
  * @returns {void} - Throws an error if the content is missing.
  */
 function checkForRequiredContent(contentPath) {
+  core.info(`Checking for required content in ${contentPath}`);
+
+  // get all files and folders in the contentPath and log them
+  const files = fs.readdirSync(contentPath);
+  core.info(`Files: ${files}`);
+
   const daFolder = path.join(contentPath, 'da');
   const assetListFile = path.join(contentPath, 'asset-list.json');
+  core.info(`DA folder: ${daFolder}`);
+  core.info(`Asset list file: ${assetListFile}`);
+
+  core.info(`DA folder exists: ${fs.existsSync(daFolder)}`);
+  core.info(`Asset list file exists: ${fs.existsSync(assetListFile)}`);
 
   if (!fs.existsSync(daFolder)) {
     throw new Error('DA folder not found');
