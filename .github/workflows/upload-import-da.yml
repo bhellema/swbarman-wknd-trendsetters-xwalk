@@ -75,7 +75,7 @@ jobs:
         if: ${{ env.errorMessage != '' }}
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
+          callback_urls: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: ${{ env.errorMessage }}
           status_type: error
@@ -84,7 +84,7 @@ jobs:
       - name: Progress 1 - Setup
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
+          callback_urls: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: Inputs look good. Now setting up the upload. (Step 1 of 5).
           status_type: progress
@@ -97,7 +97,7 @@ jobs:
       - name: Progress 2 - Extracting zip
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
+          callback_urls: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: Downloading and extracting content from the Import zip... (Step 2 of 5).
           status_type: progress
@@ -113,7 +113,7 @@ jobs:
         if: ${{ steps.download-zip.outputs.error_message != '' }}
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
+          callback_urls: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: ${{ steps.download-zip.outputs.error_message }} ${{ env.ACTION_URL }}
           status_type: error
@@ -123,7 +123,7 @@ jobs:
         if: ${{ steps.download-zip.outputs.temp_dir != '' }}
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
+          callback_urls: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: Zip extracted with ${{ steps.download-zip.outputs.file_count }} files. Initiating upload... (Step 3 of 5).
           status_type: progress
@@ -142,7 +142,7 @@ jobs:
         if: ${{ steps.da-upload-step.outputs.error_message != '' }}
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
+          callback_urls: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: ${{ steps.da-upload-step.outputs.error_message }} ${{ env.ACTION_URL }} (Step 4 of 5).
           status_type: error
@@ -151,7 +151,7 @@ jobs:
       - name: Report upload success
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
+          callback_urls: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: DA upload succeeded. (Step 5 of 5).
           status_type: ok
