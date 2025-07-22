@@ -1,5 +1,4 @@
 mountpoints:
   /:
-    url: "https://author-p141866-e1455422.adobeaemcloud.com/bin/franklin.delivery/aemdemos/swbarman-wknd-trendsetters-xwalk/main"
-    type: "markup"
-    suffix: ".html"
+    url: https://content.da.live/aemsites/bhellema/
+    type: markup
